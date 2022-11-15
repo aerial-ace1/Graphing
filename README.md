@@ -1,2 +1,4 @@
 # Graphing
-## Prims and Kruskal
+1. a. Prims
+   b. Kruskal
+2. TSP
