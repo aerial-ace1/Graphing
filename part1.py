@@ -42,10 +42,11 @@ def kruskal(edge_list,node_num):
     plot(edge_list,new_edge_list,node_num)
     
 
-def prim(edge_list,node_num,adj_mat):
+def prim(edge_list,node_num,adj_mat,pri = 0):
     '''
     Prim's Algo
     '''
+    # Init
     max = edge_list[len(edge_list)-1][2]+1
     cost = [max] * node_num
     prev = [None] * node_num
@@ -54,6 +55,7 @@ def prim(edge_list,node_num,adj_mat):
     cost[0] = 0
     prev[0] = -1
 
+    # Add min edges w/o forming cycle
     for i in range(node_num):
 
         closest = closest_node(cost,tree,node_num,max)
@@ -64,6 +66,8 @@ def prim(edge_list,node_num,adj_mat):
                 cost[j] = adj_mat[closest][j]
                 prev[j] = closest
 
+
+    # Calculating Cost + Set for Graphing
     new_edge_list = []
     for i in range(len(prev)):
         if prev[i] != -1:
@@ -71,7 +75,11 @@ def prim(edge_list,node_num,adj_mat):
             totcost += adj_mat[i][prev[i]]
     
     print("Path Cost - Prim's Algorithm: ",totcost)
+    # if pri == 1:
     plot(edge_list,new_edge_list,node_num)
+    
+
+    return edge_list
 
 def runner():
     '''
@@ -128,18 +136,22 @@ def runner():
     kruskal(edge_list,node_num)
 
     # Prim's Algo
-    prim(edge_list,node_num,adj_list)
+    prim(edge_list,node_num,adj_list,1)
 
-runner()
+def test():
+    list = [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
+    adj_mat = [[0,4,4,0,0,0],
+                [4,0,2,0,0,0],
+                [4,2,0,3,2,4],
+                [0,0,3,0,0,3],
+                [0,0,2,0,0,3],
+                [0,0,4,3,3,0]]
+    prim(list,6,adj_mat,1)
+    kruskal(list,6)
 
-# list = [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
-# adj_mat = [[0,4,4,0,0,0],
-#             [4,0,2,0,0,0],
-#             [4,2,0,3,2,4],
-#             [0,0,3,0,0,3],
-#             [0,0,2,0,0,3],
-#             [0,0,4,3,3,0]]
-# prim(list,6,adj_mat)
+# runner()
+# test()
+
 
 
 

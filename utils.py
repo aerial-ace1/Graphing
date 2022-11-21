@@ -77,3 +77,15 @@ def plot(og_edge_list,edge_list,node_num):
     H = nx.Graph(edge_list)
     nx.draw(H,pos,edge_color="red",with_labels = True)
     plt.show()
+
+def dfs(graph, node, node_num, arr, vis=None):
+
+    if vis is None:
+        vis = set()
+    vis.add(node)
+
+    arr.append(node)
+
+    for next in graph[node] - vis:
+        dfs(graph, next, node_num, arr, vis)
+    return arr
