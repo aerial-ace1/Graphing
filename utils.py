@@ -16,9 +16,7 @@ def is_cycle(edge_list,node_num):
 
         group_begin = find_parent(parent,node_begin)
         group_end = find_parent(parent,node_end)
-        print(parent)
-        print(rank)
-        print("\n")
+
         if group_begin == group_end:
             return True
         else:

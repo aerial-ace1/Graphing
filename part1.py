@@ -9,6 +9,7 @@ def kruskal():
     Implement Kruskal's Algo
     '''
     
+    
 
 def prim(edge_list,node_num):
     '''
