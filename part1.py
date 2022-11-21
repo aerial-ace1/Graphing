@@ -1,5 +1,5 @@
 import numpy as np
-from utils import is_cycle,find_parent,connect_subtrees,closest_node 
+from utils import is_cycle,find_parent,connect_subtrees,closest_node,plot
 
 def kruskal(edge_list,node_num):
     '''
@@ -32,10 +32,17 @@ def kruskal(edge_list,node_num):
     # Print the resulting MST
     # for node1, node2, weight in result:
     #     print("%d - %d: %d" % (node1, node2, weight))
-    return result
+    new_edge_list = []
+    totcost = 0
+    for edge in result:
+        new_edge_list.append((edge[0],edge[1]))
+        totcost += edge[2]
+    
+    print("Path Cost - Kruskal's Algorithm: ",totcost)
+    plot(edge_list,new_edge_list,node_num)
     
 
-def prim(edge_list,node_num):
+def prim(edge_list,node_num,adj_mat):
     '''
     Prim's Algo
     '''
@@ -43,7 +50,7 @@ def prim(edge_list,node_num):
     cost = [max] * node_num
     prev = [None] * node_num
     tree = [False] * node_num
-
+    totcost = 0
     cost[0] = 0
     prev[0] = -1
 
@@ -57,8 +64,14 @@ def prim(edge_list,node_num):
                 cost[j] = adj_mat[closest][j]
                 prev[j] = closest
 
-    return prev
-
+    new_edge_list = []
+    for i in range(len(prev)):
+        if prev[i] != -1:
+            new_edge_list.append((i,prev[i]))
+            totcost += adj_mat[i][prev[i]]
+    
+    print("Path Cost - Prim's Algorithm: ",totcost)
+    plot(edge_list,new_edge_list,node_num)
 
 def runner():
     '''
@@ -112,26 +125,21 @@ def runner():
 
 
     # Kruskal's Algo
-    kruskal_edges = kruskal(edge_list,node_num)
+    kruskal(edge_list,node_num)
 
     # Prim's Algo
-    prim_edges = (edge_list,node_num)
+    prim(edge_list,node_num,adj_list)
 
-    # Networkx Graphing
-    # TODO
+runner()
 
-    print(edge_list)
-    print(adj_list)
+# list = [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
+# adj_mat = [[0,4,4,0,0,0],
+#             [4,0,2,0,0,0],
+#             [4,2,0,3,2,4],
+#             [0,0,3,0,0,3],
+#             [0,0,2,0,0,3],
+#             [0,0,4,3,3,0]]
+# prim(list,6,adj_mat)
 
-# runner()
-# [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
-list = [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
-adj_mat = [[0,4,4,0,0,0],
-            [4,0,2,0,0,0],
-            [4,2,0,3,2,4],
-            [0,0,3,0,0,3],
-            [0,0,2,0,0,3],
-            [0,0,4,3,0,0]]
-prim(list,6,adj_mat)
 
 

@@ -1,5 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import scipy
 
 def find_parent(parent,node):
     if node != parent[node]:
@@ -58,3 +59,21 @@ def closest_node(cost,tree,node_num,max):
 
     return index_min
 
+def plot(og_edge_list,edge_list,node_num):
+    G = nx.Graph()
+    for i in range(node_num):
+        G.add_node(i)
+
+    edge_labels = {}
+    for edge in og_edge_list:
+        G.add_edge(edge[0],edge[1],weight = edge[2])
+        edge_tuple = (edge[0],edge[1])
+        edge_labels[edge_tuple] = edge[2]
+    
+    pos = nx.planar_layout(G)
+    nx.draw_networkx_edge_labels(G,pos,edge_labels=edge_labels,verticalalignment= "baseline")
+    nx.draw(G,pos)
+
+    H = nx.Graph(edge_list)
+    nx.draw(H,pos,edge_color="red",with_labels = True)
+    plt.show()
