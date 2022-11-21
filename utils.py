@@ -3,6 +3,18 @@ def find_parent(parent,node):
         parent[node] = find_parent(parent,parent[node])
     return parent[node]
 
+def connect_subtrees(parent, subtree_sizes, x, y):
+    xroot = find_parent(parent, x)
+    yroot = find_parent(parent, y)
+    if subtree_sizes[xroot] < subtree_sizes[yroot]:
+        parent[xroot] = yroot
+    elif subtree_sizes[xroot] > subtree_sizes[yroot]:
+        parent[yroot] = xroot
+    else:
+        parent[yroot] = xroot
+        subtree_sizes[xroot] += 1
+
+
 def is_cycle(edge_list,node_num):
     '''
     Checking for Cycle

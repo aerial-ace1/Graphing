@@ -3,11 +3,40 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from utils import is_cycle 
+from utils import find_parent 
 
-def kruskal():
-    '''
-    Implement Kruskal's Algo
-    '''
+def kruskal(edge_list,node_num):
+    '''*****Beginning of Kruskals algo*****'''
+    result=[]
+    i,e=0,0
+    parent=[]
+    subtree_sizes=[]
+    for node in range(node_num):
+        parent.append(node)
+        subtree_sizes.append(0)
+    
+    # Important property of MSTs
+    # number of egdes in a MST is 
+    # equal to (m_num_of_nodes - 1)
+    while e < (node_num - 1):
+        # Pick an edge with the minimal weight
+        node1, node2, weight = edge_list[i]
+        i = i + 1
+
+        x = find_parent(parent, node1)
+        y = find_parent(parent, node2)
+
+        if x != y:
+            e = e + 1
+            result.append([node1, node2, weight])
+            connect_subtrees(parent, subtree_sizes, x, y)
+    
+    # Print the resulting MST
+    for node1, node2, weight in result:
+        print("%d - %d: %d" % (node1, node2, weight))
+
+    '''*****End of  Kruskal's Algo*****'''
+
     
     
 
@@ -45,6 +74,7 @@ def runner():
                 edge_prop.append(end)
                 edge_prop.append(start)
             else:
+
                 edge_prop.append(start)
                 edge_prop.append(end)
         else:
@@ -65,8 +95,9 @@ def runner():
     # Sorting edge_list in ascending order based on weight
     edge_list = sorted(edge_list, key = lambda x: x[2])
 
+
     # Kruskal's Algo
-    kruskal()
+    kruskal(edge_list)
 
     # Prim's Algo
     prim(edge_list,node_num)
