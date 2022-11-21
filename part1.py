@@ -97,7 +97,7 @@ def runner():
 
 
     # Kruskal's Algo
-    kruskal(edge_list)
+    kruskal(edge_list,node_num)
 
     # Prim's Algo
     prim(edge_list,node_num)
