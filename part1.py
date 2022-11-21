@@ -2,19 +2,38 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 
-from utils import is_cycle 
+from utils import is_cycle, closest_node
 
 def kruskal():
     '''
     Implement Kruskal's Algo
     '''
-    
-    
 
-def prim(edge_list,node_num):
+
+def prim(edge_list,node_num,adj_mat):
     '''
-    Implement Prim's Algo
+    Prim's Algo
     '''
+    max = edge_list[len(edge_list)-1][2]+1
+    cost = [max] * node_num
+    prev = [None] * node_num
+    tree = [False] * node_num
+
+    cost[0] = 0
+    prev[0] = -1
+
+    for i in range(node_num):
+
+        closest = closest_node(cost,tree,node_num,max)
+        tree[closest] = True
+
+        for j in range(node_num):
+            if (adj_mat[closest][j] > 0)  and (tree[j] == False) and (cost[j] > adj_mat[closest][j]):
+                cost[j] = adj_mat[closest][j]
+                prev[j] = closest
+
+    return prev
+
 
 def runner():
     '''
@@ -79,7 +98,13 @@ def runner():
 
 # runner()
 # [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
-# list = [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3]]
-# print(is_cycle(list,6))
+list = [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
+adj_mat = [[0,4,4,0,0,0],
+            [4,0,2,0,0,0],
+            [4,2,0,3,2,4],
+            [0,0,3,0,0,3],
+            [0,0,2,0,0,3],
+            [0,0,4,3,0,0]]
+prim(list,6,adj_mat)
 
 

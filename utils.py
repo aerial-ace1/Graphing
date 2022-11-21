@@ -31,3 +31,14 @@ def is_cycle(edge_list,node_num):
                 if rank[group_begin] == rank[group_end]:
                     rank[group_end]+=1
     return False
+
+def closest_node(cost,tree,node_num,max):
+
+    min = max
+
+    for i in range(node_num):
+        if cost[i] < min and tree[i] == False:
+            min = cost[i]
+            index_min = i
+
+    return index_min
