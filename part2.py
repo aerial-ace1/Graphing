@@ -2,18 +2,11 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 
-from utils import is_cycle 
-
-def kruskal():
+def approxHamil():
     '''
-    Implement Kruskal's Algo
+    Implement Approximate Hamiltonian's Cycle Algo
     '''
-    
-
-def prim(edge_list,node_num):
-    '''
-    Implement Prim's Algo
-    '''
+    # TODO
 
 def runner():
     '''
@@ -60,15 +53,13 @@ def runner():
         # Add edge to adj_list
         adj_list[start][end] = edge_wght
         adj_list[end][start] = edge_wght
-    
+
     # Sorting edge_list in ascending order based on weight
     edge_list = sorted(edge_list, key = lambda x: x[2])
 
-    # Kruskal's Algo
-    kruskal()
+    # Approx Hamiltonian's Cycle Algo
+    approxHamil(node_num, edge_list)
 
-    # Prim's Algo
-    prim(edge_list,node_num)
 
     # Networkx Graphing
     # TODO
@@ -76,9 +67,8 @@ def runner():
     print(edge_list)
     print(adj_list)
 
-# runner()
-# [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3], [4, 5, 3], [0, 1, 4], [0, 2, 4], [2, 5, 4]]
-# list = [[1, 2, 2], [2, 4, 2], [2, 3, 3], [3, 5, 3]]
-# print(is_cycle(list,6))
+
+
+
 
 
