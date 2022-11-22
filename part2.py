@@ -104,10 +104,11 @@ def test1():
                 [3,2,2,3,0]]
     approxHamil(list,5,adj_mat)
 
+if __name__ == "__main__":
+    runner()
+    # test()
+    # test1()
 
-# runner()
-# test()
-test1()
 
 
 

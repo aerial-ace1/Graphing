@@ -149,8 +149,9 @@ def test():
     prim(list,6,adj_mat,1)
     kruskal(list,6)
 
-# runner()
-# test()
+if __name__ == "main":
+    runner()
+    # test()
 
 
 
