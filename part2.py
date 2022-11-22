@@ -1,12 +1,38 @@
-import networkx as nx
-import matplotlib.pyplot as plt
 import numpy as np
+from part1 import prim
+from utils import dfs,plot
 
-def approxHamil():
+def approxHamil(edge_list,node_num,adj_mat):
     '''
-    Implement Approximate Hamiltonian's Cycle Algo
+    Approximate Hamiltonian's Cycle Algo
     '''
-    # TODO
+    
+    tree_edge = prim(edge_list,node_num,adj_mat)
+
+    neighbours = {}
+    for i in range(node_num):
+        neighbours[i] = set()
+    for edge in tree_edge:
+        neighbours[edge[0]].add(edge[1])
+        neighbours[edge[1]].add(edge[0])
+    
+    path = dfs(neighbours,0,node_num)
+    order = []
+    for vertex in path:
+        order.append(vertex)
+    
+    new_edge_list = []
+    totcost = 0
+    for i in range(node_num-1):
+        new_edge_list.append((order[i],order[i+1]))
+        totcost += adj_mat[order[i]][order[i+1]]
+    new_edge_list.append((order[0],order[node_num-1]))
+    totcost += adj_mat[order[0]][order[node_num-1]]
+    
+    print("Path Cost - Hamiltomian's Algorithm: ",totcost)
+    plot(edge_list,new_edge_list,node_num)
+
+
 
 def runner():
     '''
@@ -22,7 +48,7 @@ def runner():
 
     # Generating edgelist and adjacency matrix
     edge_list = []
-    adj_list = np.zeros((node_num,node_num),"int8")
+    adj_mat = np.zeros((node_num,node_num),"int8")
 
     for i in range(edge_num):
 
@@ -50,22 +76,28 @@ def runner():
         edge_prop.append(edge_wght)
         edge_list.append(edge_prop)
 
-        # Add edge to adj_list
-        adj_list[start][end] = edge_wght
-        adj_list[end][start] = edge_wght
+        # Add edge to adj_mat
+        adj_mat[start][end] = edge_wght
+        adj_mat[end][start] = edge_wght
 
     # Sorting edge_list in ascending order based on weight
     edge_list = sorted(edge_list, key = lambda x: x[2])
 
     # Approx Hamiltonian's Cycle Algo
-    approxHamil(node_num, edge_list)
+    approxHamil(edge_list,node_num,adj_mat)
 
 
-    # Networkx Graphing
-    # TODO
+def test():
+    list = [[1, 2, 2], [0, 3, 3], [1, 3, 3], [0, 1, 4], [2, 3, 4], [0, 2, 5]]
+    adj_mat = [[0,4,5,3],
+                [4,0,2,3],
+                [5,2,0,4],
+                [3,3,4,0]]
+    approxHamil(list,4,adj_mat)
+    
 
-    print(edge_list)
-    print(adj_list)
+# runner()
+test()
 
 
 

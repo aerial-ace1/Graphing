@@ -75,8 +75,8 @@ def prim(edge_list,node_num,adj_mat,pri = 0):
             totcost += adj_mat[i][prev[i]]
     
     print("Path Cost - Prim's Algorithm: ",totcost)
-    # if pri == 1:
-    plot(edge_list,new_edge_list,node_num)
+    if pri == 1:
+        plot(edge_list,new_edge_list,node_num)
     
 
     return edge_list
