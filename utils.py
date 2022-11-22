@@ -70,7 +70,7 @@ def plot(og_edge_list,edge_list,node_num):
         edge_tuple = (edge[0],edge[1])
         edge_labels[edge_tuple] = edge[2]
     
-    pos = nx.planar_layout(G)
+    pos = nx.kamada_kawai_layout(G)
     nx.draw_networkx_edge_labels(G,pos,edge_labels=edge_labels,verticalalignment= "baseline")
     nx.draw(G,pos)
 
